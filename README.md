@@ -37,8 +37,9 @@ and this will make standard-deviation calculation much easier.
 
 ## 2. Scale-out and Separate functionlities:
 This website should be build into parts:
-(1) storage - db with cache: 
-should be a layer of cache (redis), plus a timeseries-friendly db (can be replicated);
+
+### (1) storage - db (replicated preferred) with cache: 
+should be a layer of cache (redis), plus a timeseries-friendly db;
 the cache stores the states: [rank, standard-deviation, price-sum, square-price-sum] for all currency,
 where they can all be derived from the data in db, and is for performance boost
 
