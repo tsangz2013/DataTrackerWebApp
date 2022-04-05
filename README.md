@@ -61,17 +61,20 @@ current code is not organized well, to mimic storage with cache, I can move many
 ---
 # Challenge to address:
 ## Scalability: 
-What would you change if you needed to track many metrics?: *Change the REST API to serve multiple metrics, and use batch db query*
-What if you needed to sample them more frequently? *Add more data-fetcher process, and each process fetch a set of currencies*
-What if you had many users accessing your dashboard to view metrics? *Add more front-end process replica and add more read-replica for storage*
+1. What would you change if you needed to track many metrics?: *Change the REST API to serve multiple metrics, and use batch db query*
+
+2. What if you needed to sample them more frequently? *Add more data-fetcher process, and each process fetch a set of currencies*
+
+3. What if you had many users accessing your dashboard to view metrics? *Add more front-end process replica and add more read-replica for storage*
 
 ## Testing: 
 1. unit test for code method snippets
+
 2. component by component tests, front-end / data-fetcher / rank-updater / storage-cache, each part need to be tested by mocking the other components
 3. test together, by mocking the external remove API: failure of each part, see if they can recover quickly, with correct state.
 
 ## Alert feature
-add below logic into the data-fetch processes: maintains the 1-hour average price in the cache-layer of storage,
+1. Add below logic into the data-fetch processes: maintains the 1-hour average price in the cache-layer of storage,
 and check if the latest price is 3X the 1-hour average, if so, send the alert to a message queue (e.g. kafka).
 
-And have another pool of processes consuming from the alert queue, whenever consumes a message, fire the alert message to user (also pool should also be scalable).
+2. Add another pool of processes consuming from the alert queue, whenever consumes a message, fire the alert message to user (also pool should also be scalable).
