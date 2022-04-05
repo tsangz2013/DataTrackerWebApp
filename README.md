@@ -1,6 +1,14 @@
 # DataTrackerWebApp
 Init git commit from Zhi.
 
+This project is a web server. 
+
+It will track the latest price for the defined currencies every 60 minutes.
+
+And REST APIs to get the each currency' history (up to 24 hours) and its rank (ranking of the standard-deviation of the currency).
+
+As long as the web service is running, the tracking and REST APIs will be working.
+
 # Environment requirements:
 Python version >= 3.6.9
 linux environment recommanded
@@ -15,6 +23,7 @@ Currencies to be track should be defined in /resources/metrics_rank.json
 
 ## repare the vir env
 python3 -m venv ./env
+
 source ./env/bin/activate
 
 ## install packages
@@ -22,6 +31,11 @@ pip install -r requirements.txt
 
 ## start the server program
 python3 app/server.py
+
+## call the REST API:
+get recent history (within 24 hours) of "ethusd" and it's ranking
+
+curl --header "Content-Type: application/json" --request GET --data '{"metrics_name":"ethusd"}'  http://localhost:5000/api/metrics/get
 
 ---
 # TODOs:
